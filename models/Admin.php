@@ -89,7 +89,7 @@ class Admin extends Model
     {
         $sql = "SELECT c.url_path
                     FROM admin_role a 
-                    LEFT JOIN role_privlege b ON a.role_id=b.role_id
+                    LEFT JOIN role_privilege b ON a.role_id=b.role_id
                     LEFT JOIN privilege c ON b.pri_id=c.id
                     WHERE a.admin_id=? AND c.url_path!=''";
         $stmt = $this->_db->prepare($sql);

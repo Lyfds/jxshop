@@ -18,13 +18,13 @@ class Role extends Model
         $roleId = isset($_GET['id']) ? $_GET['id'] : $this->data['id'];
 
         // 删除原权限
-        $stmt = $this->_db->prepare('DELETE FROM role_privlege WHERE role_id=?');
+        $stmt = $this->_db->prepare('DELETE FROM role_privilege WHERE role_id=?');
         $stmt->execute([
             $roleId
         ]);
 
         // 重新添加新勾选的权限
-        $stmt = $this->_db->prepare("INSERT INTO role_privlege(pri_id,role_id) VALUES(?,?)");
+        $stmt = $this->_db->prepare("INSERT INTO role_privilege(pri_id,role_id) VALUES(?,?)");
         // 循环所有勾选的权限ID插入到中间表
         foreach($_POST['pri_id'] as $v)
         {
@@ -38,7 +38,7 @@ class Role extends Model
     // 在删除之前执行
     protected function _before_delete()
     {
-        $stmt = $this->_db->prepare("delete from role_privlege where role_id=?");
+        $stmt = $this->_db->prepare("delete from role_privilege where role_id=?");
         $stmt->execute([
             $_GET['id']
         ]);
@@ -48,7 +48,7 @@ class Role extends Model
     public function getPriIds($roleId)
     {
         // 预处理
-        $stmt = $this->_db->prepare('SELECT pri_id FROM role_privlege WHERE role_id=?');
+        $stmt = $this->_db->prepare('SELECT pri_id FROM role_privilege WHERE role_id=?');
         // 执行
         $stmt->execute([
             $roleId

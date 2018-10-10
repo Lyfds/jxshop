@@ -10,7 +10,7 @@ class RoleController extends BaseController{
         $model = new Role;
         $data = $model->findAll([
             'fields'=>'a.*,GROUP_CONCAT(c.pri_name) pri_list',
-            'join'=>' a LEFT JOIN role_privlege b ON a.id=b.role_id LEFT JOIN privilege c ON b.pri_id=c.id ',
+            'join'=>' a LEFT JOIN role_privilege b ON a.id=b.role_id LEFT JOIN privilege c ON b.pri_id=c.id ',
             'groupby'=>' GROUP BY a.id ',
         ]);
         view('role/index', $data);
